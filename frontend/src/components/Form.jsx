@@ -9,7 +9,7 @@ import { RxReset } from "react-icons/rx";
 // Functions URL
 import { useParams, useNavigate } from "react-router-dom";
 
-const TaskForm = ({ setNewTask }) => {
+const CreateForm = ({ setNewTask }) => {
   const id = useParams();
   const navigate = useNavigate();
 
@@ -23,14 +23,12 @@ const TaskForm = ({ setNewTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if(id.id) {
+    navigate("/");
+    if (id.id) {
       dispatch(updateTask(id, task));
     } else {
       dispatch(addNewTask(task));
     }
-
-    navigate("/");
   };
 
   const handleChange = (e) => {
@@ -68,7 +66,10 @@ const TaskForm = ({ setNewTask }) => {
       onSubmit={handleSubmit}
       className="w-full relative max-w-2xl bg-white border m-5 py-6 px-7 rounded-lg flex flex-col gap-4 items-start"
     >
-      <h1 className="font-semibold text-3xl"> {id.id ? "Update Note!" : "New Note!"}</h1>
+      <h1 className="font-semibold text-3xl">
+        {" "}
+        {id.id ? "Update Note!" : "New Note!"}
+      </h1>
       <div className="flex flex-col gap-3 w-full h-full">
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-medium text-lg">
@@ -149,4 +150,4 @@ const TaskForm = ({ setNewTask }) => {
   );
 };
 
-export default TaskForm;
+export default CreateForm;

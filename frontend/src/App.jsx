@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TaskForm from "./components/TaskForm";
+import Form from "./components/Form";
 import TasksList from "./components/TasksList";
 
 // Functions
@@ -46,7 +46,7 @@ function App() {
             : "pointer-events-none opacity-0"
         }`}
       >
-        <TaskForm setNewTask={setNewTask} />
+        <Form setNewTask={setNewTask} />
       </div>
       <div className="w-full h-full max-w-2xl overflow-auto">
         {tasks.length <= 0 ? (
@@ -54,7 +54,7 @@ function App() {
             Create a new Note!
           </p>
         ) : (
-          <TasksList tasks={tasks} setNewTask={setNewTask} />
+          <TasksList tasks={tasks} newTask={newTask} setNewTask={setNewTask} />
         )}
       </div>
     </main>

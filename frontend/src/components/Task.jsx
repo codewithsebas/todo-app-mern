@@ -9,10 +9,9 @@ import { completedTask, deleteTask, updateTask } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 // Functions URL
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Task = ({ task, setNewTask }) => {
-  const id = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleIDUrl = (task) => {
