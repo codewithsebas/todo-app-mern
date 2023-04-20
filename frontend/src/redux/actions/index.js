@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADDNEW_TASK } from "./type";
+import { ADDNEW_TASK, GETALL_TASK } from "./type";
 
 const API_URL = "http://localhost:8000";
 
@@ -15,7 +15,7 @@ export const addNewTask = (data) => async (dispatch) => {
 export const getAllTasks = () => async (dispatch) => {
   try {
     const res = await axios.get(`${API_URL}`);
-    // dispatch({ type: ADDNEW_TASK, payload: res.data });
+    dispatch({ type: GETALL_TASK, payload: res.data });
   } catch (error) {
     console.log("Error AllTasks API", error.message);
   }

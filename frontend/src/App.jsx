@@ -4,7 +4,7 @@ import TasksList from './components/TasksList'
 
 // Functions
 import { getAllTasks } from './redux/actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // Icons
 import {BsPatchPlus} from "react-icons/bs"
@@ -14,6 +14,8 @@ function App() {
   const [newTask, setNewTask] = useState(false)
 
   const dispatch = useDispatch()
+  // Tasks from the DATABASE
+  const tasks = useSelector(state => state.tasks)
 
   useEffect(() => {
     dispatch(getAllTasks())
@@ -26,7 +28,7 @@ function App() {
             Hello and welcome to this Notes App
           </h1>
           <p className="text-lg text-black/50 font-medium">
-            You´ve got 10 tasks coming up in the next days.
+            You´ve got {tasks.length} tasks coming up in the next days.
           </p>
         </nav>
         <div className="w-full flex justify-between max-w-2xl pr-2">
@@ -58,7 +60,7 @@ function App() {
             {/* <p className="w-full h-full flex items-center justify-center text-lg text-black/50 font-medium">
               Create a new Note!{" "}
             </p> */}
-            <TasksList setNewTask={setNewTask} />
+            <TasksList tasks={tasks} setNewTask={setNewTask} />
         </div>
       </main>
   )
