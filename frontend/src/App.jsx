@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { BsPatchPlus } from "react-icons/bs";
-import { MdDeleteSweep } from "react-icons/md";
 
 function App() {
   const [newTask, setNewTask] = useState(false);
@@ -38,10 +37,6 @@ function App() {
         >
           <BsPatchPlus className="text-xl" />
           <p>Create a new note</p>
-        </button>
-        <button className="flex gap-3 items-center text-sm bg-zinc-800 text-white  font-medium px-4 rounded-md duration-200 active:bg-zinc-700">
-          <MdDeleteSweep className="text-xl" />
-          <p>Clear all</p>
         </button>
       </div>
       <div

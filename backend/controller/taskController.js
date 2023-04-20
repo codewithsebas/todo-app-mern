@@ -43,15 +43,13 @@ export const completedTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.body.data);
+};
+
+export const deleteTask = async (req, res) => {
   try {
-    const task = await Task.findByIdAndUpdate(
-      { _id: req.params.id },
-      { title: req.body.title },
-      { description: req.body.description }
-    );
-
-    await task.save();
-
+    const task = await Task.findByIdAndDelete(req.params.id);
     return res.status(200).json(task);
   } catch (error) {
     return res.status(500).json(error.message);

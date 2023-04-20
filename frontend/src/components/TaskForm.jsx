@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import { addNewTask } from "../redux/actions";
+import { addNewTask, updateTask } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 // Icons
 import { VscClose } from "react-icons/vsc";
 import { RxReset } from "react-icons/rx";
 
+// Functions URL
+import { useParams, useNavigate } from "react-router-dom";
+
 const TaskForm = ({ setNewTask }) => {
+  const id = useParams();
+  const navigate = useNavigate();
+
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -15,11 +21,16 @@ const TaskForm = ({ setNewTask }) => {
 
   const dispatch = useDispatch();
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addNewTask(task));
-    handleReset()
+    
+    if(id.id) {
+      dispatch(updateTask(id, task));
+    } else {
+      dispatch(addNewTask(task));
+    }
+
+    navigate("/");
   };
 
   const handleChange = (e) => {
@@ -41,6 +52,7 @@ const TaskForm = ({ setNewTask }) => {
     function handleEscClose(event) {
       if (event.keyCode === 27) {
         setNewTask(false);
+        navigate("/");
       }
     }
 
@@ -56,7 +68,7 @@ const TaskForm = ({ setNewTask }) => {
       onSubmit={handleSubmit}
       className="w-full relative max-w-2xl bg-white border m-5 py-6 px-7 rounded-lg flex flex-col gap-4 items-start"
     >
-      <h1 className="font-semibold text-3xl">New Note</h1>
+      <h1 className="font-semibold text-3xl"> {id.id ? "Update Note!" : "New Note!"}</h1>
       <div className="flex flex-col gap-3 w-full h-full">
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-medium text-lg">
@@ -104,7 +116,7 @@ const TaskForm = ({ setNewTask }) => {
             type="reset"
             className="w-full gap-3 flex basis-7 items-center justify-between shadow-md text-base bg-zinc-800 text-white  font-medium py-2 px-4 rounded-md duration-200 active:shadow-lg active:border-zinc-300 active:bg-zinc-700"
           >
-            Reset <RxReset />
+            Reset! <RxReset />
           </button>
           <button
             disabled={!task.title || !task.description}
@@ -116,7 +128,7 @@ const TaskForm = ({ setNewTask }) => {
                 : "bg-zinc-800 text-white active:border-zinc-300 active:bg-zinc-700"
             }`}
           >
-            Create Note
+            {id.id ? "Update!" : "Create Note!"}
           </button>
         </div>
       </div>
@@ -124,6 +136,7 @@ const TaskForm = ({ setNewTask }) => {
         className="absolute right-4 top-4 text-xl flex items-center gap-2"
         onClick={() => {
           setNewTask(false);
+          navigate("/");
         }}
         type="button"
       >

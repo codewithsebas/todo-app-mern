@@ -5,17 +5,19 @@ import { MdDelete } from "react-icons/md";
 import { TbCircleCheckFilled, TbCircleCheck } from "react-icons/tb";
 
 // Functions
-import { completedTask, updateTask } from "../redux/actions";
+import { completedTask, deleteTask, updateTask } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 // Functions URL
-import { useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Task = ({ task, setNewTask }) => {
+  const id = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleIDUrl = (task) => {
-    console.log(task);
-  }
+    navigate(`/${task}`);
+  };
   return (
     <div
       key={task._id}
@@ -34,7 +36,7 @@ const Task = ({ task, setNewTask }) => {
           <h1 className="text-lg font-medium">{task.title}</h1>
           <p className="text-[#797979]">{task.description}</p>
         </div>
-        <div className="text-[#797979]">{task.createdAt}</div>
+        {/* <div className="text-[#797979]">{task.createdAt}</div> */}
       </div>
       <div className="flex justify-between gap-3 w-full">
         <div
@@ -67,9 +69,8 @@ const Task = ({ task, setNewTask }) => {
           {task.completed === false ? (
             <button
               onClick={() => {
-                setNewTask(true)
-                handleIDUrl(task._id)
-                dispatch(updateTask(task._id))
+                setNewTask(true);
+                handleIDUrl(task._id);
               }}
               className="rounded-md outline-none text-zinc-600 active:text-zinc-800 hover:text-zinc-500 duration-200"
             >
@@ -79,7 +80,7 @@ const Task = ({ task, setNewTask }) => {
             <TbEditCircleOff className="text-zinc-400 hover:text-zinc-500 duration-200 cursor-not-allowed" />
           )}
           <button
-            onClick={() => handleDelete(task.id)}
+            onClick={() => dispatch(deleteTask(task._id))}
             className="rounded-md text-zinc-600 active:text-zinc-800 hover:text-zinc-500 duration-200"
           >
             <MdDelete />
