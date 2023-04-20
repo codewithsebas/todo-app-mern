@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { addNewTask } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 // Icons
 import { VscClose } from "react-icons/vsc";
@@ -12,8 +14,11 @@ const TaskForm = ({ setNewTask }) => {
     completed: false,
   });
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addNewTask(task));
   };
 
   const handleChange = (e) => {
