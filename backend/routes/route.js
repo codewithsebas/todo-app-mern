@@ -1,8 +1,9 @@
 import express from "express"
-import { addTask } from "../controller/taskController.js";
+import { addTask, getAllTasks } from "../controller/taskController.js";
 
 const route = express.Router();
 
-route.post('/tasks', addTask)
+route.post('/', addTask)
+route.get('/', getAllTasks)
 
 export default route;

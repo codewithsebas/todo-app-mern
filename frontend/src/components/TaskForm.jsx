@@ -19,6 +19,7 @@ const TaskForm = ({ setNewTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addNewTask(task));
+    handleReset()
   };
 
   const handleChange = (e) => {

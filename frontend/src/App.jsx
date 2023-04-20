@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TaskForm from './components/TaskForm'
 import TasksList from './components/TasksList'
+
+// Functions
+import { getAllTasks } from './redux/actions'
+import { useDispatch } from 'react-redux'
 
 // Icons
 import {BsPatchPlus} from "react-icons/bs"
@@ -8,6 +12,12 @@ import {MdDeleteSweep} from "react-icons/md"
 
 function App() {
   const [newTask, setNewTask] = useState(false)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllTasks())
+  },[])
 
   return (
     <main className="bg-[#fdfdfd] w-full h-screen flex flex-col gap-5 justify-start items-center px-4">
@@ -45,9 +55,9 @@ function App() {
           <TaskForm setNewTask={setNewTask} />
         </div>
         <div className="w-full h-full max-w-2xl overflow-auto">
-            <p className="w-full h-full flex items-center justify-center text-lg text-black/50 font-medium">
+            {/* <p className="w-full h-full flex items-center justify-center text-lg text-black/50 font-medium">
               Create a new Note!{" "}
-            </p>
+            </p> */}
             <TasksList setNewTask={setNewTask} />
         </div>
       </main>
