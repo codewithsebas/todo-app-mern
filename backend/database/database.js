@@ -1,16 +1,18 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
-const URI =
-  "mongodb+srv://joabgiraldo:a3y5DY0XuZO6KYkc@todoapp.cyj7epr.mongodb.net/?retryWrites=true&w=majority";
+const connectDB = () => {
+  mongoose.connect(process.env.URI, { useNewUrlParser: true });
+  mongoose.connection.on("connected", () => {
+    console.log("Successfully");
+  });
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
+  mongoose.connection.on("disconnected", () => {
+    console.log("Disconnected");
+  });
+
+  mongoose.connection.on("error", () => {
+    console.log("Error");
+  });
 };
 
-module.exports = connectDB;
+export default connectDB;
