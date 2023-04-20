@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { addNewTask, updateTask } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Icons
 import { VscClose } from "react-icons/vsc";
@@ -20,12 +20,14 @@ const CreateForm = ({ setNewTask }) => {
   });
 
   const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/");
     if (id.id) {
-      dispatch(updateTask(id, task));
+      dispatch(updateTask(id.id, task));
+      console.log(id.id, task);
     } else {
       dispatch(addNewTask(task));
     }
