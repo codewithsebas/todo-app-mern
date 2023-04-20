@@ -2,8 +2,20 @@
 import { BsPatchCheckFill, BsPatchCheck } from "react-icons/bs";
 import { TbEditCircle, TbEditCircleOff } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
+import { TbCircleCheckFilled, TbCircleCheck } from "react-icons/tb";
+
+// Functions
+import { completedTask, updateTask } from "../redux/actions";
+import { useDispatch } from "react-redux";
+
+// Functions URL
+import { useHistory } from "react-router-dom";
 
 const Task = ({ task, setNewTask }) => {
+  const dispatch = useDispatch();
+  const handleIDUrl = (task) => {
+    console.log(task);
+  }
   return (
     <div
       key={task._id}
@@ -28,8 +40,8 @@ const Task = ({ task, setNewTask }) => {
         <div
           className={`py-1 px-4 text-center rounded-md ${
             task.completed === false
-              ? "bg-slate-100"
-              : "bg-zinc-800 text-white border-black/30"
+              ? "bg-slate-100 border"
+              : "bg-zinc-600 text-white border-black"
           }`}
         >
           {task.completed === false ? (
@@ -43,10 +55,21 @@ const Task = ({ task, setNewTask }) => {
           )}
         </div>
         <div className="flex items-center gap-3 text-2xl nocopy">
+          {task.completed === true ? (
+            <button className="rounded-md outline-none text-zinc-400 hover:text-zinc-500 duration-200">
+              <TbCircleCheckFilled />
+            </button>
+          ) : (
+            <button onClick={() => dispatch(completedTask(task._id))}>
+              <TbCircleCheck />
+            </button>
+          )}
           {task.completed === false ? (
             <button
               onClick={() => {
-                setNewTask(true);
+                setNewTask(true)
+                handleIDUrl(task._id)
+                dispatch(updateTask(task._id))
               }}
               className="rounded-md outline-none text-zinc-600 active:text-zinc-800 hover:text-zinc-500 duration-200"
             >

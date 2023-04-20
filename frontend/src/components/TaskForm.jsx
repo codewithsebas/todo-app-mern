@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 // Icons
 import { VscClose } from "react-icons/vsc";
-import { TbCircleCheckFilled, TbCircleCheck } from "react-icons/tb";
 import { RxReset } from "react-icons/rx";
 
 const TaskForm = ({ setNewTask }) => {
@@ -15,6 +14,7 @@ const TaskForm = ({ setNewTask }) => {
   });
 
   const dispatch = useDispatch();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -97,20 +97,6 @@ const TaskForm = ({ setNewTask }) => {
             checked={task.completed}
             onChange={handleChange}
           />
-
-          <label
-            htmlFor="completed"
-            className="text-lg font-medium flex items-center gap-2 cursor-pointer"
-          >
-            <div id="completed" className="text-2xl">
-              {task.completed === true ? (
-                <TbCircleCheckFilled />
-              ) : (
-                <TbCircleCheck />
-              )}
-            </div>
-            Completed
-          </label>
         </div>
         <div className="flex flex-row justify-between">
           <button
@@ -130,7 +116,7 @@ const TaskForm = ({ setNewTask }) => {
                 : "bg-zinc-800 text-white active:border-zinc-300 active:bg-zinc-700"
             }`}
           >
-            "Update Note"
+            Create Note
           </button>
         </div>
       </div>
