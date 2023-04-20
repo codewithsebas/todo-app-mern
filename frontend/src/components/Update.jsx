@@ -13,6 +13,10 @@ const CreateForm = ({ setNewTask }) => {
   const id = useParams();
   const navigate = useNavigate();
 
+  const tasks = useSelector((state) => state.tasks);
+
+  const taskUpdate = tasks.find((task) => task._id === id.id);
+
   const [task, setTask] = useState({
     title: "",
     description: "",
@@ -24,7 +28,7 @@ const CreateForm = ({ setNewTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/");
-    dispatch(addNewTask(task));
+    dispatch(updateTask(id.id, task));
   };
 
   const handleChange = (e) => {
@@ -45,7 +49,7 @@ const CreateForm = ({ setNewTask }) => {
   useEffect(() => {
     function handleEscClose(event) {
       if (event.keyCode === 27) {
-        setNewTask(false);
+        setNewTask(0);
         navigate("/");
       }
     }
@@ -62,7 +66,7 @@ const CreateForm = ({ setNewTask }) => {
       onSubmit={handleSubmit}
       className="w-full relative max-w-2xl bg-white border m-5 py-6 px-7 rounded-lg flex flex-col gap-4 items-start"
     >
-      <h1 className="font-semibold text-3xl">New Note!</h1>
+      <h1 className="font-semibold text-3xl">Update Note!</h1>
       <div className="flex flex-col gap-3 w-full h-full">
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-medium text-lg">
@@ -122,14 +126,15 @@ const CreateForm = ({ setNewTask }) => {
                 : "bg-zinc-800 text-white active:border-zinc-300 active:bg-zinc-700"
             }`}
           >
-            Create Note!
+            Update!
           </button>
         </div>
       </div>
       <button
         className="absolute right-4 top-4 text-xl flex items-center gap-2"
         onClick={() => {
-          setNewTask(false);
+          setNewTask(0);
+          navigate("/");
         }}
         type="button"
       >

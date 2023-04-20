@@ -44,19 +44,21 @@ export const completedTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   const taskId = req.params.id;
-  const {title, description} = req.body.data
-
-  console.log(taskId, title, description);
+  const { title, description } = req.body.data;
   try {
-    const task = await Task.findByIdAndUpdate(taskId, { title, description }, { new: true });
+    const task = await Task.findByIdAndUpdate(
+      taskId,
+      { title, description },
+      { new: true }
+    );
 
     if (!task) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({ message: "Task not found" });
     }
 
-    res.status(200).json({ message: 'Task updated successfully', task });
+    res.status(200).json({ message: "Task updated successfully", task });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+    res.status(500).json({ message: "Server error", error });
   }
 };
 
